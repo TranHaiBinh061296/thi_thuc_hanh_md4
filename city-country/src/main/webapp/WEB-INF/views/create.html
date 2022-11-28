@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="/layout/head :: head"/>
+  <title>Thêm thành phố</title>
+  <link rel="stylesheet" href="/assets/css/deposit.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="table-title">
+    <div class="row">
+      <div class="col-sm-5">
+        <h2>  Thêm thành phố</h2>
+      </div>
+      <div class="col-sm-7">
+        <a href="/cities/list" class="btn btn-outline-light"><i class="fa fa-list"></i>Danh sách thành phố</a>
+      </div>
+    </div>
+  </div>
+  <form action="/cities/create" method="post" th:object="${city}">
+    <div class="form-edit">
+      <div class="row col-3">
+        <div class="col-ms-3">
+          <p>Tên thành phố</p>
+          <input type="text" class="form-control" th:field="*{cityName}">
+        </div>
+        <div class="col-ms-3">
+          <p>Quốc gia:</p>
+          <select th:field="*{country.id}" class="form-select">
+            <th:block th:each="country: ${countries}">
+              <option th:value="${country.id}" th:text="${country.nameCountry}"></option>
+            </th:block>
+          </select>
+        </div>
+      </div>
+      <div class="row col-3">
+        <div class="col-ms-3">
+          <p>Diện tích (km2):</p>
+          <input min="0" type="number" class="form-control" th:field="*{area}">
+        </div>
+        <div class="col-ms-3">
+          <p>Dân số: </p>
+          <input type="number" class="form-control" th:field="*{population}">
+        </div>
+      </div>
+      <div class="row col-3">
+        <div class="col-ms-3">
+          <p>GDP:</p>
+          <input type="number" min="1" class="form-control" th:field="*{gdp}">
+        </div>
+        <div class="col-ms-3">
+          <p>Giới thiệu:</p>
+          <textarea name="" id="" cols="40" rows="4" th:field="*{description}"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">
+      <i class="fa-solid fa-plus"></i>
+      Thêm thành phố</button>
+    <a href="/cities/list" class="btn btn-secondary">
+      <i class="fa-solid fa-arrow-rotate-left"></i>
+      Thoát</a>
+  </form>
+</div>
+
+</div>
+<div class="footer">
+  <th:block th:if="${success}">
+    <div class="success">
+      <div class="container">
+        <ul>
+          <li th:text="${success}"></li>
+        </ul>
+      </div>
+    </div>
+  </th:block>
+
+  <th:block th:if="${error}">
+    <div class="error">
+      <div class="container">
+        <ul>
+          <li th:text="${error}"></li>
+        </ul>
+      </div>
+    </div>
+  </th:block>
+
+  <th:block th:if="${errors}">
+    <div class="error">
+      <div class="container">
+        <ul>
+          <th:block th:each="e : ${errors}">
+            <li th:text="${e.defaultMessage}"></li>
+          </th:block>
+        </ul>
+      </div>
+    </div>
+  </th:block>
+</div>
+</body>
+</html>

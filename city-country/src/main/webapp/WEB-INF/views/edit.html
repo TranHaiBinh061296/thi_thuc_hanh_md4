@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit City</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .footer {
+      margin-top: 5px;
+      color: #842029;
+      background-color: #f8d7da;
+      border-color: #f5c2c7;
+    }
+    .footer>.success {
+      margin-top: 5px;
+      color: #2d2d2d;
+      border-color: #017234;
+    }
+    .footer>.success ul{
+      list-style-type: none;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid">
+  <h2>Chỉnh sửa thành phố <th:block th:text="${city.cityName}"></th:block></h2>
+  <form method="post" th:object = "${city}">
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">Tên: </label>
+      </div>
+      <div class="col-lg-10">
+        <input type="text" class="form-control" th:field = "*{cityName}">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">Quốc gia: </label>
+      </div>
+      <div class="col-lg-2">
+        <select  th:field="*{country.id}" class="form-select" >
+          <th:block th:each="country: ${countries}">
+            <option th:value="${country.id}" th:text="${country.nameCountry}"></option>
+          </th:block>
+        </select>
+      </div>
+      <div class="col-lg-8"></div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">Diện tích: </label>
+      </div>
+      <div class="col-lg-10">
+        <input type="number" class="form-control" th:field="*{area}">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">Dân số: </label>
+      </div>
+      <div class="col-lg-10">
+        <input type="number" class="form-control" th:field="*{population}">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">GDP: </label>
+      </div>
+      <div class="col-lg-10">
+        <input type="number" class="form-control" th:field="*{gdp}">
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-2">
+        <label for="" class="fw-bold">Giới thiệu: </label>
+      </div>
+      <div class="col-lg-10">
+        <textarea name="" id="" cols="143" rows="4" th:field="*{description}"></textarea>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+      <a href="/cities/list" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+        Thoát</a>
+    </div>
+  </form>
+  <div class="footer">
+    <th:block th:if="${success}">
+      <div class="success">
+        <div class="container">
+          <ul>
+            <li th:text="${success}"></li>
+          </ul>
+        </div>
+      </div>
+    </th:block>
+
+    <th:block th:if="${error}">
+      <div class="error">
+        <div class="container">
+          <ul>
+            <li th:text="${error}"></li>
+          </ul>
+        </div>
+      </div>
+    </th:block>
+
+    <th:block th:if="${errors}">
+      <div class="error">
+        <div class="container">
+          <ul>
+            <th:block  th:each="e : ${errors}">
+              <li th:text="${e.defaultMessage}"></li>
+            </th:block>
+          </ul>
+        </div>
+      </div>
+    </th:block>
+  </div>
+</div>
+</body>
+</html>
